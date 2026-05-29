@@ -1,0 +1,270 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Performance Predictor</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        /* Navbar */
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #ffd700;
+        }
+
+        /* Hero Section */
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #ffd700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            color: #f2f2f2;
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            background: #ffd700;
+            color: #333;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0px 10px 20px rgba(0,0,0,0.25);
+        }
+
+        /* Features */
+
+        .features {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            color: #ffd700;
+        }
+
+        .card p {
+            color: #f1f1f1;
+            line-height: 1.6;
+        }
+
+        /* About */
+
+        .about {
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .about p {
+            max-width: 800px;
+            margin: auto;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            background: rgba(0,0,0,0.15);
+        }
+
+        @media(max-width:768px){
+
+            .hero h1{
+                font-size:2.5rem;
+            }
+
+            .hero p{
+                font-size:1rem;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <nav>
+            <div class="logo">
+                Student<span>AI</span>
+            </div>
+        </nav>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <h1>
+                    Predict Student <span>Math Performance</span>
+                </h1>
+
+                <p>
+                    An AI-powered machine learning application that predicts
+                    a student's mathematics score based on demographic,
+                    educational, and academic performance indicators.
+                </p>
+
+                <a href="/predictdata" class="btn">
+                    Start Prediction 🚀
+                </a>
+
+            </div>
+
+        </section>
+
+        <section class="features">
+
+            <h2 class="section-title">
+                Why Use This Predictor?
+            </h2>
+
+            <div class="cards">
+
+                <div class="card">
+                    <h3>📊 Machine Learning</h3>
+                    <p>
+                        Uses trained machine learning models to estimate
+                        mathematics performance accurately.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>⚡ Instant Results</h3>
+                    <p>
+                        Get predictions in seconds without any complex setup.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>🎯 Data Driven</h3>
+                    <p>
+                        Predictions are based on reading scores,
+                        writing scores, and educational factors.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>📚 Educational Insights</h3>
+                    <p>
+                        Understand how different educational
+                        factors influence student performance.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="about">
+
+            <h2 class="section-title">
+                About the Project
+            </h2>
+
+            <p>
+                This project demonstrates an end-to-end machine learning
+                pipeline built using Python, Flask, Scikit-Learn,
+                and modern web technologies. The model has been trained
+                on student performance data and can predict mathematics
+                scores using relevant educational attributes.
+            </p>
+
+        </section>
+
+    </div>
+
+    <footer>
+        Built with ❤️ using Flask, Python & Machine Learning
+    </footer>
+
+</body>
+
+</html>
+

@@ -1,0 +1,356 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Performance Predictor</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 750px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+            color: white;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #f1f1f1;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        select,
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 10px;
+            outline: none;
+            font-size: 15px;
+        }
+
+        select:focus,
+        input:focus {
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 114, 255, 0.4);
+        }
+
+        /* POPUP */
+
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .popup-content {
+            position: relative;
+            overflow: hidden;
+            background: white;
+            color: #333;
+            padding: 45px;
+            border-radius: 20px;
+            text-align: center;
+            min-width: 400px;
+            animation: scaleUp 0.4s ease;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* GREEN COUNTDOWN BAR */
+
+        .timer-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 8px;
+            width: 100%;
+            background: #22c55e;
+            border-radius: 20px 20px 0 0;
+            animation: countdown 5s linear forwards;
+        }
+
+        .popup-content h2 {
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        .popup-score {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #0072ff;
+            animation: pulse 1s infinite;
+        }
+
+        .closing-text {
+            margin-top: 15px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        @keyframes countdown {
+            from {
+                width: 100%;
+            }
+
+            to {
+                width: 0%;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.08);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes scaleUp {
+            from {
+                transform: scale(0.6);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @media(max-width:768px) {
+
+            .card {
+                padding: 20px;
+            }
+
+            .popup-content {
+                min-width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Main Content -->
+
+    <div class="container" id="main-content">
+
+        <div class="card">
+
+            <h1 class="title">📚 Student Exam Performance Predictor</h1>
+
+            <p class="subtitle">
+                Predict the Mathematics Score using student information
+            </p>
+
+            <form action="{{ url_for('predict_datapoint') }}" method="post">
+
+                <div class="form-group">
+                    <label>Gender</label>
+                    <select name="gender" required>
+                        <option selected disabled value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Race / Ethnicity</label>
+                    <select name="race_ethnicity" required>
+                        <option selected disabled value="">Select Ethnicity</option>
+                        <option value="group A">Group A</option>
+                        <option value="group B">Group B</option>
+                        <option value="group C">Group C</option>
+                        <option value="group D">Group D</option>
+                        <option value="group E">Group E</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Parental Level of Education</label>
+                    <select name="parental_level_of_education" required>
+                        <option selected disabled value="">Select Education</option>
+                        <option value="associate's degree">Associate's Degree</option>
+                        <option value="bachelor's degree">Bachelor's Degree</option>
+                        <option value="high school">High School</option>
+                        <option value="master's degree">Master's Degree</option>
+                        <option value="some college">Some College</option>
+                        <option value="some high school">Some High School</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Lunch Type</label>
+                    <select name="lunch" required>
+                        <option selected disabled value="">Select Lunch Type</option>
+                        <option value="free/reduced">Free / Reduced</option>
+                        <option value="standard">Standard</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Test Preparation Course</label>
+                    <select name="test_preparation_course" required>
+                        <option selected disabled value="">Select Course</option>
+                        <option value="none">None</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Reading Score</label>
+                    <input type="number"
+                           name="reading_score"
+                           min="0"
+                           max="100"
+                           placeholder="Enter Reading Score"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Writing Score</label>
+                    <input type="number"
+                           name="writing_score"
+                           min="0"
+                           max="100"
+                           placeholder="Enter Writing Score"
+                           required>
+                </div>
+
+                <button type="submit" class="btn">
+                    Predict Maths Score 🚀
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- Prediction Popup -->
+
+    {% if results %}
+    <div id="prediction-popup" class="popup">
+
+        <div class="popup-content">
+
+            <div class="timer-bar"></div>
+
+            <h2>🎯 Predicted Maths Score</h2>
+
+            <div class="popup-score">
+                {{ results }}
+            </div>
+
+            <p class="closing-text">
+                Returning in 5 seconds...
+            </p>
+
+        </div>
+
+    </div>
+    {% endif %}
+
+    <script>
+
+        {% if results %}
+
+        window.onload = function () {
+
+            const popup = document.getElementById("prediction-popup");
+            const mainContent = document.getElementById("main-content");
+
+            mainContent.style.display = "none";
+
+            popup.style.display = "flex";
+
+            setTimeout(() => {
+
+                popup.style.display = "none";
+                mainContent.style.display = "block";
+
+            }, 5000);
+
+        }
+
+        {% endif %}
+
+    </script>
+
+</body>
+
+</html>
+
